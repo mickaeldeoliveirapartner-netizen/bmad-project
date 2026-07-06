@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMAD Agents Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #f7f4ea;
+      --bg-2: #d7ebe7;
+      --ink: #142220;
+      --muted: #3e5752;
+      --card: rgba(255, 255, 255, 0.72);
+      --line: rgba(20, 34, 32, 0.14);
+      --accent: #ff6b35;
+      --accent-soft: #ffd8c8;
+      --platform: #005f73;
+      --dev: #2b9348;
+      --shadow: 0 18px 40px rgba(20, 34, 32, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1000px 480px at 8% 8%, rgba(255, 107, 53, 0.12), transparent 60%),
+        radial-gradient(900px 520px at 88% 14%, rgba(0, 95, 115, 0.16), transparent 55%),
+        linear-gradient(145deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+      font-family: "Space Grotesk", "Avenir Next", sans-serif;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image: radial-gradient(circle at 1px 1px, #000 1px, transparent 0);
+      background-size: 3px 3px;
+      mix-blend-mode: soft-light;
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+      padding: 56px 0 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 28px;
+      animation: rise 680ms ease both;
+    }
+
+    .kicker {
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.45);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Newsreader", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 6vw, 4.1rem);
+      line-height: 0.95;
+      max-width: 16ch;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 6px 0 18px;
+      animation: rise 760ms ease both;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      display: inline-block;
+    }
+
+    .dot.dev {
+      background: var(--dev);
+    }
+
+    .dot.platform {
+      background: var(--platform);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .agent-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      backdrop-filter: blur(5px);
+      box-shadow: var(--shadow);
+      padding: 18px 16px 16px;
+      display: grid;
+      gap: 10px;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: cardIn 520ms ease forwards;
+    }
+
+    .agent-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 44px rgba(20, 34, 32, 0.2);
+      border-color: rgba(20, 34, 32, 0.22);
+    }
+
+    .agent-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .icon {
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .team-tag {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      border: 1px solid transparent;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .team-tag.software-development {
+      color: #194b2b;
+      background: #daf2e2;
+      border-color: #b8e5c7;
+    }
+
+    .team-tag.decathlon-platform {
+      color: #073642;
+      background: #d3eef4;
+      border-color: #a6dae5;
+    }
+
+    .agent-name {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .agent-title {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.4;
+    }
+
+    .agent-description {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 12px;
+      animation: rise 860ms ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding-top: 38px;
+      }
+
+      .grid {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="container">
+    <section class="hero">
+      <p class="kicker">AI Augmented SDLC</p>
+      <h1>BMAD Agent Directory</h1>
+      <p class="subtitle">
+        Une vue claire des agents BMAD actifs dans ce projet. Cette page peut servir de support de demo pour expliquer qui fait quoi avant de lancer un vrai sprint.
+      </p>
+    </section>
+
+    <section class="legend" aria-label="Legend">
+      <span class="chip"><span class="dot dev"></span>Software Development</span>
+      <span class="chip"><span class="dot platform"></span>Decathlon Platform</span>
+    </section>
+
+    <section class="grid" aria-label="BMAD Agents">
+      <article class="agent-card" style="animation-delay: 80ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">📊</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Mary</h2>
+        <p class="agent-title">Business Analyst</p>
+        <p class="agent-description">Channels Porter's strategic rigor and Minto's Pyramid Principle, grounds every finding in verifiable evidence, represents every stakeholder voice.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 120ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">📚</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Paige</h2>
+        <p class="agent-title">Technical Writer</p>
+        <p class="agent-description">Master of CommonMark, DITA, and OpenAPI; turns complex concepts into accessible structured docs, favors diagrams over walls of text.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 160ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">📋</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">John</h2>
+        <p class="agent-title">Product Manager</p>
+        <p class="agent-description">Drives Jobs-to-be-Done over template filling, user value first, technical feasibility is a constraint not the driver.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 200ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">🎨</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Sally</h2>
+        <p class="agent-title">UX Designer</p>
+        <p class="agent-description">Balances empathy with edge-case rigor, starts simple and evolves through feedback, every decision serves a genuine user need.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 240ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">🏗️</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Winston</h2>
+        <p class="agent-title">System Architect</p>
+        <p class="agent-description">Favors boring technology for stability, developer productivity as architecture, ties every decision to business value.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 280ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">💻</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Amelia</h2>
+        <p class="agent-title">Senior Software Engineer</p>
+        <p class="agent-description">Test-first discipline (red, green, refactor), 100% pass before review, no fluff all precision.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 320ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">🔬</span>
+          <span class="team-tag decathlon-platform">decathlon-platform</span>
+        </div>
+        <h2 class="agent-name">Morgan</h2>
+        <p class="agent-title">Senior SRE / Platform Reliability Engineer</p>
+        <p class="agent-description">Reliability-focused engineer who uses the AppReferential knowledge graph as the mandatory first step for every investigation.</p>
+      </article>
+    </section>
+
+    <p class="footer-note">
+      Conseil demo: fais une capture d'ecran de cette page pour expliquer la repartition des roles BMAD pendant un kickoff.
+    </p>
+  </main>
+</body>
+</html>
