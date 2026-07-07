@@ -326,9 +326,53 @@
       color: #194b2b;
     }
 
+    .label-chip.clickable {
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+      user-select: none;
+    }
+
+    .label-chip.clickable:hover,
+    .label-chip.clickable:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(20, 34, 32, 0.1);
+      outline: none;
+    }
+
+    .label-chip.active {
+      background: #143f37;
+      color: #f5fffd;
+      border-color: #143f37;
+    }
+
     .label-chip.none {
       background: #f2f2f2;
       color: #4b4b4b;
+    }
+
+    .label-details {
+      margin-top: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.82);
+      display: none;
+      gap: 8px;
+    }
+
+    .label-details.open {
+      display: grid;
+    }
+
+    .label-details h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .label-details p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
     .footer-note {
@@ -537,6 +581,9 @@
       <p>
         Source utilisee: overrides dans _bmad/custom et skill SRE specialise. Objectif: rendre visible comment BMAD est upgrade pour le contexte Decathlon.
       </p>
+      <p>
+        Clique sur un label pour deplier son explication.
+      </p>
 
       <div class="labels-grid">
         <article class="label-agent">
@@ -556,57 +603,63 @@
         <article class="label-agent">
           <h3>John · PM</h3>
           <div>
-            <span class="label-chip">kg-first discovery</span>
-            <span class="label-chip">tech-radar gate</span>
-            <span class="label-chip">tech-compliance sig</span>
-            <span class="label-chip">a11y in acceptance criteria</span>
-            <span class="label-chip">api integration story template</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="kg-first-discovery">kg-first discovery</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-radar-gate">tech-radar gate</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-compliance-sig">tech-compliance sig</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="a11y-acceptance">a11y in acceptance criteria</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="api-integration-template">api integration story template</span>
           </div>
         </article>
 
         <article class="label-agent">
           <h3>Sally · UX</h3>
           <div>
-            <span class="label-chip">vitamin play mandatory</span>
-            <span class="label-chip">design.md as source of truth</span>
-            <span class="label-chip">wcag 2.2 aa / rgaa</span>
-            <span class="label-chip">mockup workflow skill-gated</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="vitamin-play-mandatory">vitamin play mandatory</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="design-md-source">design.md as source of truth</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="wcag-rgaa">wcag 2.2 aa / rgaa</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="mockup-skill-gated">mockup workflow skill-gated</span>
           </div>
         </article>
 
         <article class="label-agent">
           <h3>Winston · Architect</h3>
           <div>
-            <span class="label-chip">tech-radar enforce</span>
-            <span class="label-chip">hard-block hold tech</span>
-            <span class="label-chip">kg-first architecture context</span>
-            <span class="label-chip">fedid architecture policy</span>
-            <span class="label-chip">sig maturity debt capture</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-radar-enforce">tech-radar enforce</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="hard-block-hold-tech">hard-block hold tech</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="kg-architecture-context">kg-first architecture context</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="fedid-architecture-policy">fedid architecture policy</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="sig-debt-capture">sig maturity debt capture</span>
           </div>
         </article>
 
         <article class="label-agent">
           <h3>Amelia · Dev</h3>
           <div>
-            <span class="label-chip">tech-radar required</span>
-            <span class="label-chip">tech-compliance required</span>
-            <span class="label-chip">kg-first implementation</span>
-            <span class="label-chip">web task flow enforced</span>
-            <span class="label-chip">fedid implementation patterns</span>
-            <span class="label-chip">vitamin play + a11y guardrails</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-radar-required">tech-radar required</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-compliance-required">tech-compliance required</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="kg-implementation">kg-first implementation</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="web-task-flow">web task flow enforced</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="fedid-implementation">fedid implementation patterns</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="vitamin-a11y-guardrails">vitamin play + a11y guardrails</span>
           </div>
         </article>
 
         <article class="label-agent">
           <h3>Morgan · SRE</h3>
           <div>
-            <span class="label-chip">evidence-first</span>
-            <span class="label-chip">read-only operations</span>
-            <span class="label-chip">production-only scope</span>
-            <span class="label-chip">slo/incident workflows</span>
-            <span class="label-chip">decathlon platform team context</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="evidence-first">evidence-first</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="read-only-operations">read-only operations</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="production-only-scope">production-only scope</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="slo-incident-workflows">slo/incident workflows</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="decathlon-platform-context">decathlon platform team context</span>
           </div>
         </article>
+      </div>
+
+      <div class="label-details" id="label-details" aria-live="polite">
+        <h3 id="label-details-title"></h3>
+        <p id="label-details-add"></p>
+        <p id="label-details-transform"></p>
       </div>
     </section>
 
@@ -614,5 +667,179 @@
       Conseil demo: fais une capture d'ecran de cette page pour expliquer la repartition des roles BMAD pendant un kickoff.
     </p>
   </main>
+  <script>
+    (function () {
+      const detailsByLabel = {
+        "kg-first-discovery": {
+          title: "kg-first discovery",
+          add: "Ajoute une etape obligatoire de lookup AppReferential avant le cadrage des stories et integrations.",
+          transform: "Transforme le PM vers un scope base sur des assets reels plutot que des hypotheses."
+        },
+        "tech-radar-gate": {
+          title: "tech-radar gate",
+          add: "Ajoute l'obligation d'invoquer decathlon-tech-radar pendant la discovery.",
+          transform: "Transforme la priorisation produit en incluant les contraintes de gouvernance technologique."
+        },
+        "tech-compliance-sig": {
+          title: "tech-compliance sig",
+          add: "Ajoute le controle de maturite SIG via decathlon-tech-compliance.",
+          transform: "Transforme la planification en integrant les gaps conformite comme items de backlog."
+        },
+        "a11y-acceptance": {
+          title: "a11y in acceptance criteria",
+          add: "Ajoute explicitement WCAG/RGAA dans les criteres d'acceptation.",
+          transform: "Transforme les stories: l'accessibilite devient une exigence de livraison."
+        },
+        "api-integration-template": {
+          title: "api integration story template",
+          add: "Ajoute un template de story integration API avec owner, refs, auth, endpoints et risques.",
+          transform: "Transforme le cadrage API en artefact actionnable et standardise."
+        },
+        "vitamin-play-mandatory": {
+          title: "vitamin play mandatory",
+          add: "Ajoute l'usage obligatoire du design system Vitamin Play.",
+          transform: "Transforme les livrables UX en evitant les composants ad hoc."
+        },
+        "design-md-source": {
+          title: "design.md as source of truth",
+          add: "Ajoute la lecture de DESIGN.md comme reference de tokens et guidelines.",
+          transform: "Transforme les maquettes en alignement avec les standards design a jour."
+        },
+        "wcag-rgaa": {
+          title: "wcag 2.2 aa / rgaa",
+          add: "Ajoute une validation accessibilite obligatoire avant validation.",
+          transform: "Transforme les decisions UX vers une conformite mesurable."
+        },
+        "mockup-skill-gated": {
+          title: "mockup workflow skill-gated",
+          add: "Ajoute un workflow de mockup guide par skill.",
+          transform: "Transforme la production UX en processus repetable et auditable."
+        },
+        "tech-radar-enforce": {
+          title: "tech-radar enforce",
+          add: "Ajoute un controle strict Radar sur chaque choix d'architecture.",
+          transform: "Transforme la recommendation architecture en decision gouvernee par politiques."
+        },
+        "hard-block-hold-tech": {
+          title: "hard-block hold tech",
+          add: "Ajoute une regle de blocage sur les technos classees HOLD.",
+          transform: "Transforme la sortie architecte vers des alternatives ADOPT avec rationale."
+        },
+        "kg-architecture-context": {
+          title: "kg-first architecture context",
+          add: "Ajoute la verification des assets SI via knowledge graph avant conception.",
+          transform: "Transforme l'architecture pour la baser sur le contexte reel (stack, ownership, dependances)."
+        },
+        "fedid-architecture-policy": {
+          title: "fedid architecture policy",
+          add: "Ajoute la politique FedID comme standard auth/calls selon stack.",
+          transform: "Transforme les choix securite en patterns homogenes Decathlon."
+        },
+        "sig-debt-capture": {
+          title: "sig maturity debt capture",
+          add: "Ajoute l'obligation de tracer les ecarts conformite en dette.",
+          transform: "Transforme l'analyse architecture en plan de remediation concret."
+        },
+        "tech-radar-required": {
+          title: "tech-radar required",
+          add: "Ajoute l'invocation obligatoire de decathlon-tech-radar en dev.",
+          transform: "Transforme l'implementation pour eviter les choix non conformes en amont."
+        },
+        "tech-compliance-required": {
+          title: "tech-compliance required",
+          add: "Ajoute l'invocation obligatoire de decathlon-tech-compliance en dev.",
+          transform: "Transforme la livraison en incluant les exigences SIG dans le done."
+        },
+        "kg-implementation": {
+          title: "kg-first implementation",
+          add: "Ajoute la verification des services/API via AppReferential avant de coder.",
+          transform: "Transforme le dev en implementation contextualisee et moins risquee."
+        },
+        "web-task-flow": {
+          title: "web task flow enforced",
+          add: "Ajoute une sequence imposee de skills pour les sujets frontend (UI, a11y, forms, fetch).",
+          transform: "Transforme le delivery web en pipeline qualite standardise."
+        },
+        "fedid-implementation": {
+          title: "fedid implementation patterns",
+          add: "Ajoute des patterns FedID predefinis pour Next, Astro, Spring.",
+          transform: "Transforme les integrations auth vers un standard entreprise reutilisable."
+        },
+        "vitamin-a11y-guardrails": {
+          title: "vitamin play + a11y guardrails",
+          add: "Ajoute des garde-fous design tokens + accessibilite obligatoires.",
+          transform: "Transforme l'UI codee en rendu coherent avec le design system et la conformite."
+        },
+        "evidence-first": {
+          title: "evidence-first",
+          add: "Ajoute la regle: pas d'affirmation sans preuve (Datadog, KG, GitHub).",
+          transform: "Transforme Morgan en diagnostic fiable et traceable."
+        },
+        "read-only-operations": {
+          title: "read-only operations",
+          add: "Ajoute l'interdiction de pretendre des actions de prod (deploy, rollback, mute).",
+          transform: "Transforme Morgan en role d'analyse sans action operationnelle fictive."
+        },
+        "production-only-scope": {
+          title: "production-only scope",
+          add: "Ajoute un scope par defaut sur prod sauf override explicite.",
+          transform: "Transforme l'investigation vers l'impact business reel."
+        },
+        "slo-incident-workflows": {
+          title: "slo/incident workflows",
+          add: "Ajoute des workflows specialises incidents et SLO via menu SRE.",
+          transform: "Transforme Morgan en execution guidee par playbooks fiabilite."
+        },
+        "decathlon-platform-context": {
+          title: "decathlon platform team context",
+          add: "Ajoute le positionnement team et mission plateforme Decathlon.",
+          transform: "Transforme la posture SRE en orientation explicite platform reliability."
+        }
+      };
+
+      const chips = Array.from(document.querySelectorAll('.label-chip.clickable'));
+      const panel = document.getElementById('label-details');
+      const title = document.getElementById('label-details-title');
+      const add = document.getElementById('label-details-add');
+      const transform = document.getElementById('label-details-transform');
+      let activeKey = null;
+
+      function clearActive() {
+        chips.forEach((chip) => chip.classList.remove('active'));
+      }
+
+      function toggleLabel(key, chip) {
+        if (!detailsByLabel[key]) {
+          return;
+        }
+
+        if (activeKey === key) {
+          activeKey = null;
+          clearActive();
+          panel.classList.remove('open');
+          return;
+        }
+
+        activeKey = key;
+        clearActive();
+        chip.classList.add('active');
+
+        title.textContent = detailsByLabel[key].title;
+        add.textContent = "Ce que le label ajoute: " + detailsByLabel[key].add;
+        transform.textContent = "Ce que ca transforme chez l'agent: " + detailsByLabel[key].transform;
+        panel.classList.add('open');
+      }
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => toggleLabel(chip.dataset.label, chip));
+        chip.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleLabel(chip.dataset.label, chip);
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
