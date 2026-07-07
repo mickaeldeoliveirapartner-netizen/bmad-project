@@ -273,6 +273,64 @@
       letter-spacing: 0.01em;
     }
 
+    .labels {
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      animation: rise 900ms ease both;
+    }
+
+    .labels h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.2rem, 2.7vw, 1.7rem);
+      font-family: "Newsreader", Georgia, serif;
+    }
+
+    .labels p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .labels-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    .label-agent {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.76);
+      display: grid;
+      gap: 8px;
+    }
+
+    .label-agent h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .label-chip {
+      display: inline-block;
+      margin: 0 6px 6px 0;
+      font-size: 0.76rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: #eef7f5;
+      color: #194b2b;
+    }
+
+    .label-chip.none {
+      background: #f2f2f2;
+      color: #4b4b4b;
+    }
+
     .footer-note {
       margin-top: 26px;
       color: var(--muted);
@@ -469,6 +527,84 @@
             <span class="skill-badge">skills.config.json</span>
             <span class="skill-badge">skills-lock.json</span>
             <span class="skill-badge">mcp.config.json</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="labels" aria-label="Decathlon labels by agent">
+      <h2>Resume des labels Decathlon ajoutes aux agents</h2>
+      <p>
+        Source utilisee: overrides dans _bmad/custom et skill SRE specialise. Objectif: rendre visible comment BMAD est upgrade pour le contexte Decathlon.
+      </p>
+
+      <div class="labels-grid">
+        <article class="label-agent">
+          <h3>Mary · Analyst</h3>
+          <div>
+            <span class="label-chip none">pas d'override decathlon specifique</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Paige · Tech Writer</h3>
+          <div>
+            <span class="label-chip none">pas d'override decathlon specifique</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>John · PM</h3>
+          <div>
+            <span class="label-chip">kg-first discovery</span>
+            <span class="label-chip">tech-radar gate</span>
+            <span class="label-chip">tech-compliance sig</span>
+            <span class="label-chip">a11y in acceptance criteria</span>
+            <span class="label-chip">api integration story template</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Sally · UX</h3>
+          <div>
+            <span class="label-chip">vitamin play mandatory</span>
+            <span class="label-chip">design.md as source of truth</span>
+            <span class="label-chip">wcag 2.2 aa / rgaa</span>
+            <span class="label-chip">mockup workflow skill-gated</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Winston · Architect</h3>
+          <div>
+            <span class="label-chip">tech-radar enforce</span>
+            <span class="label-chip">hard-block hold tech</span>
+            <span class="label-chip">kg-first architecture context</span>
+            <span class="label-chip">fedid architecture policy</span>
+            <span class="label-chip">sig maturity debt capture</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Amelia · Dev</h3>
+          <div>
+            <span class="label-chip">tech-radar required</span>
+            <span class="label-chip">tech-compliance required</span>
+            <span class="label-chip">kg-first implementation</span>
+            <span class="label-chip">web task flow enforced</span>
+            <span class="label-chip">fedid implementation patterns</span>
+            <span class="label-chip">vitamin play + a11y guardrails</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Morgan · SRE</h3>
+          <div>
+            <span class="label-chip">evidence-first</span>
+            <span class="label-chip">read-only operations</span>
+            <span class="label-chip">production-only scope</span>
+            <span class="label-chip">slo/incident workflows</span>
+            <span class="label-chip">decathlon platform team context</span>
           </div>
         </article>
       </div>
