@@ -207,72 +207,6 @@
       line-height: 1.55;
     }
 
-    .matrix {
-      margin-top: 24px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(5px);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      animation: rise 820ms ease both;
-    }
-
-    .matrix h2 {
-      margin: 0 0 8px;
-      font-size: clamp(1.3rem, 2.8vw, 1.8rem);
-      font-family: "Newsreader", Georgia, serif;
-    }
-
-    .matrix > p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .matrix-grid {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .rule-card {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.72);
-      display: grid;
-      gap: 8px;
-    }
-
-    .rule-card h3 {
-      margin: 0;
-      font-size: 1rem;
-    }
-
-    .rule-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .skill-badge {
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255, 107, 53, 0.08);
-      color: #7d2f12;
-      letter-spacing: 0.01em;
-    }
-
     .labels {
       margin-top: 20px;
       border: 1px solid var(--line);
@@ -501,85 +435,10 @@
       </article>
     </section>
 
-    <section class="matrix" aria-label="Decathlon Governance Matrix">
-      <h2>Decathlon Governance Matrix</h2>
-      <p>
-        Cette cartographie montre quelles regles Decathlon sont appliquees au-dela de Morgan, et quels skills non natifs BMAD portent ces contraintes dans le flux de travail.
-      </p>
-
-      <div class="matrix-grid">
-        <article class="rule-card">
-          <h3>Amelia · Dev</h3>
-          <p>Tech Radar et Tech Compliance obligatoires, verification AppReferential, normes web Vitamin Play et accessibilite, pattern FedID pour auth.</p>
-          <div class="skills">
-            <span class="skill-badge">decathlon-tech-radar</span>
-            <span class="skill-badge">decathlon-tech-compliance</span>
-            <span class="skill-badge">asset-knowledge-graph-direct</span>
-            <span class="skill-badge">web-ui-development</span>
-            <span class="skill-badge">web-accessibility-evaluation</span>
-            <span class="skill-badge">better-auth-fedid-configuration-nextjs</span>
-          </div>
-        </article>
-
-        <article class="rule-card">
-          <h3>Winston · Architect</h3>
-          <p>Gouvernance technologique stricte, blocage des choix non conformes, architecture contextualisee via knowledge graph avant recommandations.</p>
-          <div class="skills">
-            <span class="skill-badge">decathlon-tech-radar</span>
-            <span class="skill-badge">decathlon-tech-compliance</span>
-            <span class="skill-badge">asset-knowledge-graph-direct</span>
-            <span class="skill-badge">web-ui-development</span>
-            <span class="skill-badge">http-fetching-methods</span>
-          </div>
-        </article>
-
-        <article class="rule-card">
-          <h3>John · PM</h3>
-          <p>Cadrage produit ancre sur les assets reels du SI Decathlon, obligations de maturite SIG et exigences accessibilite en acceptance criteria.</p>
-          <div class="skills">
-            <span class="skill-badge">asset-knowledge-graph-direct</span>
-            <span class="skill-badge">decathlon-tech-radar</span>
-            <span class="skill-badge">decathlon-tech-compliance</span>
-          </div>
-        </article>
-
-        <article class="rule-card">
-          <h3>Sally · UX</h3>
-          <p>Design system Vitamin Play obligatoire, guidelines centrales Decathlon, conformite WCAG 2.2 AA / RGAA avant validation de maquette.</p>
-          <div class="skills">
-            <span class="skill-badge">web-ui-development</span>
-            <span class="skill-badge">web-accessibility-evaluation</span>
-            <span class="skill-badge">web-forms-development</span>
-          </div>
-        </article>
-
-        <article class="rule-card">
-          <h3>Morgan · SRE</h3>
-          <p>Fiabilite orientee evidence-first, SLO/error budget, impact analysis et investigation prod sans speculation, avec workflows Decathlon SRE.</p>
-          <div class="skills">
-            <span class="skill-badge">incident-investigation</span>
-            <span class="skill-badge">slo-generator</span>
-            <span class="skill-badge">help-sre</span>
-            <span class="skill-badge">delivery-metrics</span>
-          </div>
-        </article>
-
-        <article class="rule-card">
-          <h3>Transverse Plateforme</h3>
-          <p>Le catalogue de skills du projet charge explicitement des skills Decathlon non natifs BMAD et des integrations entreprise (Datadog, Atlassian, Stitch).</p>
-          <div class="skills">
-            <span class="skill-badge">skills.config.json</span>
-            <span class="skill-badge">skills-lock.json</span>
-            <span class="skill-badge">mcp.config.json</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <section class="labels" aria-label="Decathlon labels by agent">
-      <h2>Resume des labels Decathlon ajoutes aux agents</h2>
+      <h2>Decathlon Governance et Resume des labels</h2>
       <p>
-        Source utilisee: overrides dans _bmad/custom et skill SRE specialise. Objectif: rendre visible comment BMAD est upgrade pour le contexte Decathlon.
+        Encart unique de synthese: gouvernance Decathlon + labels agent. Source utilisee: overrides dans _bmad/custom, skill SRE specialise, et catalogue plateforme.
       </p>
       <p>
         Clique sur un label pour deplier son explication.
@@ -652,6 +511,15 @@
             <span class="label-chip clickable" role="button" tabindex="0" data-label="production-only-scope">production-only scope</span>
             <span class="label-chip clickable" role="button" tabindex="0" data-label="slo-incident-workflows">slo/incident workflows</span>
             <span class="label-chip clickable" role="button" tabindex="0" data-label="decathlon-platform-context">decathlon platform team context</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Transverse Plateforme</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="skill-catalog-decathlon">skill catalog decathlon</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="skills-lock-governance">skills lock governance</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="enterprise-mcp-integration">enterprise mcp integration</span>
           </div>
         </article>
       </div>
@@ -794,6 +662,21 @@
           title: "decathlon platform team context",
           add: "Ajoute le positionnement team et mission plateforme Decathlon.",
           transform: "Transforme la posture SRE en orientation explicite platform reliability."
+        },
+        "skill-catalog-decathlon": {
+          title: "skill catalog decathlon",
+          add: "Ajoute un catalogue de skills non natifs BMAD provenant de dktunited (radar, compliance, fedid, reliability, KG).",
+          transform: "Transforme les agents en workflows metier Decathlon pre-outilles."
+        },
+        "skills-lock-governance": {
+          title: "skills lock governance",
+          add: "Ajoute un verrou de version et de provenance des skills utilises dans le projet.",
+          transform: "Transforme la plateforme en execution plus stable, reproductible et auditable."
+        },
+        "enterprise-mcp-integration": {
+          title: "enterprise mcp integration",
+          add: "Ajoute les integrations MCP entreprise (Datadog, Atlassian, Stitch).",
+          transform: "Transforme les agents en assistants connectes aux sources operationnelles reelles."
         }
       };
 
