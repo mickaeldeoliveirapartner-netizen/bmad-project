@@ -1,0 +1,3 @@
+[submodule "prism-hub-gas"]
+	path = prism-hub-gas
+	url = https://github.com/dktunited/prism_hub_gas.git
