@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMAD Agents Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #f7f4ea;
+      --bg-2: #d7ebe7;
+      --ink: #142220;
+      --muted: #3e5752;
+      --card: rgba(255, 255, 255, 0.72);
+      --line: rgba(20, 34, 32, 0.14);
+      --accent: #ff6b35;
+      --accent-soft: #ffd8c8;
+      --platform: #005f73;
+      --dev: #2b9348;
+      --shadow: 0 18px 40px rgba(20, 34, 32, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1000px 480px at 8% 8%, rgba(255, 107, 53, 0.12), transparent 60%),
+        radial-gradient(900px 520px at 88% 14%, rgba(0, 95, 115, 0.16), transparent 55%),
+        linear-gradient(145deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+      font-family: "Space Grotesk", "Avenir Next", sans-serif;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image: radial-gradient(circle at 1px 1px, #000 1px, transparent 0);
+      background-size: 3px 3px;
+      mix-blend-mode: soft-light;
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+      padding: 56px 0 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 28px;
+      animation: rise 680ms ease both;
+    }
+
+    .kicker {
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.45);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Newsreader", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 6vw, 4.1rem);
+      line-height: 0.95;
+      max-width: 16ch;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 6px 0 18px;
+      animation: rise 760ms ease both;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      display: inline-block;
+    }
+
+    .dot.dev {
+      background: var(--dev);
+    }
+
+    .dot.platform {
+      background: var(--platform);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .agent-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      backdrop-filter: blur(5px);
+      box-shadow: var(--shadow);
+      padding: 18px 16px 16px;
+      display: grid;
+      gap: 10px;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: cardIn 520ms ease forwards;
+    }
+
+    .agent-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 44px rgba(20, 34, 32, 0.2);
+      border-color: rgba(20, 34, 32, 0.22);
+    }
+
+    .agent-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .icon {
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .team-tag {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      border: 1px solid transparent;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .team-tag.software-development {
+      color: #194b2b;
+      background: #daf2e2;
+      border-color: #b8e5c7;
+    }
+
+    .team-tag.decathlon-platform {
+      color: #073642;
+      background: #d3eef4;
+      border-color: #a6dae5;
+    }
+
+    .agent-name {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .agent-title {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.4;
+    }
+
+    .agent-description {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .labels {
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      animation: rise 900ms ease both;
+    }
+
+    .labels h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.2rem, 2.7vw, 1.7rem);
+      font-family: "Newsreader", Georgia, serif;
+    }
+
+    .labels p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .labels-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    .label-agent {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.76);
+      display: grid;
+      gap: 8px;
+    }
+
+    .label-agent h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .label-chip {
+      display: inline-block;
+      margin: 0 6px 6px 0;
+      font-size: 0.76rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: #eef7f5;
+      color: #194b2b;
+    }
+
+    .label-chip.clickable {
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+      user-select: none;
+    }
+
+    .label-chip.clickable:hover,
+    .label-chip.clickable:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(20, 34, 32, 0.1);
+      outline: none;
+    }
+
+    .label-chip.active {
+      background: #143f37;
+      color: #f5fffd;
+      border-color: #143f37;
+    }
+
+    .label-chip.none {
+      background: #f2f2f2;
+      color: #4b4b4b;
+    }
+
+    .label-details {
+      margin-top: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.82);
+      display: none;
+      gap: 8px;
+    }
+
+    .label-details.open {
+      display: grid;
+    }
+
+    .label-details h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .label-details p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 12px;
+      animation: rise 860ms ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding-top: 38px;
+      }
+
+      .grid {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="container">
+    <section class="hero">
+      <p class="kicker">AI Augmented SDLC</p>
+      <h1>BMAD Agent Directory</h1>
+      <p class="subtitle">
+        Une vue claire des agents BMAD actifs dans ce projet. Cette page peut servir de support de demo pour expliquer qui fait quoi avant de lancer un vrai sprint.
+      </p>
+    </section>
+
+    <section class="legend" aria-label="Legend">
+      <span class="chip"><span class="dot dev"></span>Software Development</span>
+      <span class="chip"><span class="dot platform"></span>Decathlon Platform</span>
+    </section>
+
+    <section class="grid" aria-label="BMAD Agents">
+      <article class="agent-card" style="animation-delay: 80ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">📊</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Mary</h2>
+        <p class="agent-title">Business Analyst</p>
+        <p class="agent-description">Channels Porter's strategic rigor and Minto's Pyramid Principle, grounds every finding in verifiable evidence, represents every stakeholder voice.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 120ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">📚</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Paige</h2>
+        <p class="agent-title">Technical Writer</p>
+        <p class="agent-description">Master of CommonMark, DITA, and OpenAPI; turns complex concepts into accessible structured docs, favors diagrams over walls of text.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 160ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">📋</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">John</h2>
+        <p class="agent-title">Product Manager</p>
+        <p class="agent-description">Drives Jobs-to-be-Done over template filling, user value first, technical feasibility is a constraint not the driver.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 200ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">🎨</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Sally</h2>
+        <p class="agent-title">UX Designer</p>
+        <p class="agent-description">Balances empathy with edge-case rigor, starts simple and evolves through feedback, every decision serves a genuine user need.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 240ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">🏗️</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Winston</h2>
+        <p class="agent-title">System Architect</p>
+        <p class="agent-description">Favors boring technology for stability, developer productivity as architecture, ties every decision to business value.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 280ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">💻</span>
+          <span class="team-tag software-development">software-development</span>
+        </div>
+        <h2 class="agent-name">Amelia</h2>
+        <p class="agent-title">Senior Software Engineer</p>
+        <p class="agent-description">Test-first discipline (red, green, refactor), 100% pass before review, no fluff all precision.</p>
+      </article>
+
+      <article class="agent-card" style="animation-delay: 320ms">
+        <div class="agent-head">
+          <span class="icon" aria-hidden="true">🔬</span>
+          <span class="team-tag decathlon-platform">decathlon-platform</span>
+        </div>
+        <h2 class="agent-name">Morgan</h2>
+        <p class="agent-title">Senior SRE / Platform Reliability Engineer</p>
+        <p class="agent-description">Reliability-focused engineer who uses the AppReferential knowledge graph as the mandatory first step for every investigation.</p>
+      </article>
+    </section>
+
+    <section class="labels" aria-label="Decathlon labels by agent">
+      <h2>Decathlon Governance et Resume des labels</h2>
+      <p>
+        Encart unique de synthese: gouvernance Decathlon + labels agent. Source utilisee: overrides dans _bmad/custom, skill SRE specialise, et catalogue plateforme.
+      </p>
+      <p>
+        Clique sur un label pour deplier son explication.
+      </p>
+
+      <div class="labels-grid">
+        <article class="label-agent">
+          <h3>Mary · Analyst</h3>
+          <div>
+            <span class="label-chip none">pas d'override decathlon specifique</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Paige · Tech Writer</h3>
+          <div>
+            <span class="label-chip none">pas d'override decathlon specifique</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>John · PM</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="kg-first-discovery">kg-first discovery</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-radar-gate">tech-radar gate</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-compliance-sig">tech-compliance sig</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="a11y-acceptance">a11y in acceptance criteria</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="api-integration-template">api integration story template</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Sally · UX</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="vitamin-play-mandatory">vitamin play mandatory</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="design-md-source">design.md as source of truth</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="wcag-rgaa">wcag 2.2 aa / rgaa</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="mockup-skill-gated">mockup workflow skill-gated</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Winston · Architect</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-radar-enforce">tech-radar enforce</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="hard-block-hold-tech">hard-block hold tech</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="kg-architecture-context">kg-first architecture context</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="fedid-architecture-policy">fedid architecture policy</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="sig-debt-capture">sig maturity debt capture</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Amelia · Dev</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-radar-required">tech-radar required</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="tech-compliance-required">tech-compliance required</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="kg-implementation">kg-first implementation</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="web-task-flow">web task flow enforced</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="fedid-implementation">fedid implementation patterns</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="vitamin-a11y-guardrails">vitamin play + a11y guardrails</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Morgan · SRE</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="evidence-first">evidence-first</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="read-only-operations">read-only operations</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="production-only-scope">production-only scope</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="slo-incident-workflows">slo/incident workflows</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="decathlon-platform-context">decathlon platform team context</span>
+          </div>
+        </article>
+
+        <article class="label-agent">
+          <h3>Transverse Plateforme</h3>
+          <div>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="skill-catalog-decathlon">skill catalog decathlon</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="skills-lock-governance">skills lock governance</span>
+            <span class="label-chip clickable" role="button" tabindex="0" data-label="enterprise-mcp-integration">enterprise mcp integration</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="label-details" id="label-details" aria-live="polite">
+        <h3 id="label-details-title"></h3>
+        <p id="label-details-add"></p>
+        <p id="label-details-transform"></p>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Conseil demo: fais une capture d'ecran de cette page pour expliquer la repartition des roles BMAD pendant un kickoff.
+    </p>
+  </main>
+  <script>
+    (function () {
+      const detailsByLabel = {
+        "kg-first-discovery": {
+          title: "kg-first discovery",
+          add: "Ajoute une etape obligatoire de lookup AppReferential avant le cadrage des stories et integrations.",
+          transform: "Transforme le PM vers un scope base sur des assets reels plutot que des hypotheses."
+        },
+        "tech-radar-gate": {
+          title: "tech-radar gate",
+          add: "Ajoute l'obligation d'invoquer decathlon-tech-radar pendant la discovery.",
+          transform: "Transforme la priorisation produit en incluant les contraintes de gouvernance technologique."
+        },
+        "tech-compliance-sig": {
+          title: "tech-compliance sig",
+          add: "Ajoute le controle de maturite SIG via decathlon-tech-compliance.",
+          transform: "Transforme la planification en integrant les gaps conformite comme items de backlog."
+        },
+        "a11y-acceptance": {
+          title: "a11y in acceptance criteria",
+          add: "Ajoute explicitement WCAG/RGAA dans les criteres d'acceptation.",
+          transform: "Transforme les stories: l'accessibilite devient une exigence de livraison."
+        },
+        "api-integration-template": {
+          title: "api integration story template",
+          add: "Ajoute un template de story integration API avec owner, refs, auth, endpoints et risques.",
+          transform: "Transforme le cadrage API en artefact actionnable et standardise."
+        },
+        "vitamin-play-mandatory": {
+          title: "vitamin play mandatory",
+          add: "Ajoute l'usage obligatoire du design system Vitamin Play.",
+          transform: "Transforme les livrables UX en evitant les composants ad hoc."
+        },
+        "design-md-source": {
+          title: "design.md as source of truth",
+          add: "Ajoute la lecture de DESIGN.md comme reference de tokens et guidelines.",
+          transform: "Transforme les maquettes en alignement avec les standards design a jour."
+        },
+        "wcag-rgaa": {
+          title: "wcag 2.2 aa / rgaa",
+          add: "Ajoute une validation accessibilite obligatoire avant validation.",
+          transform: "Transforme les decisions UX vers une conformite mesurable."
+        },
+        "mockup-skill-gated": {
+          title: "mockup workflow skill-gated",
+          add: "Ajoute un workflow de mockup guide par skill.",
+          transform: "Transforme la production UX en processus repetable et auditable."
+        },
+        "tech-radar-enforce": {
+          title: "tech-radar enforce",
+          add: "Ajoute un controle strict Radar sur chaque choix d'architecture.",
+          transform: "Transforme la recommendation architecture en decision gouvernee par politiques."
+        },
+        "hard-block-hold-tech": {
+          title: "hard-block hold tech",
+          add: "Ajoute une regle de blocage sur les technos classees HOLD.",
+          transform: "Transforme la sortie architecte vers des alternatives ADOPT avec rationale."
+        },
+        "kg-architecture-context": {
+          title: "kg-first architecture context",
+          add: "Ajoute la verification des assets SI via knowledge graph avant conception.",
+          transform: "Transforme l'architecture pour la baser sur le contexte reel (stack, ownership, dependances)."
+        },
+        "fedid-architecture-policy": {
+          title: "fedid architecture policy",
+          add: "Ajoute la politique FedID comme standard auth/calls selon stack.",
+          transform: "Transforme les choix securite en patterns homogenes Decathlon."
+        },
+        "sig-debt-capture": {
+          title: "sig maturity debt capture",
+          add: "Ajoute l'obligation de tracer les ecarts conformite en dette.",
+          transform: "Transforme l'analyse architecture en plan de remediation concret."
+        },
+        "tech-radar-required": {
+          title: "tech-radar required",
+          add: "Ajoute l'invocation obligatoire de decathlon-tech-radar en dev.",
+          transform: "Transforme l'implementation pour eviter les choix non conformes en amont."
+        },
+        "tech-compliance-required": {
+          title: "tech-compliance required",
+          add: "Ajoute l'invocation obligatoire de decathlon-tech-compliance en dev.",
+          transform: "Transforme la livraison en incluant les exigences SIG dans le done."
+        },
+        "kg-implementation": {
+          title: "kg-first implementation",
+          add: "Ajoute la verification des services/API via AppReferential avant de coder.",
+          transform: "Transforme le dev en implementation contextualisee et moins risquee."
+        },
+        "web-task-flow": {
+          title: "web task flow enforced",
+          add: "Ajoute une sequence imposee de skills pour les sujets frontend (UI, a11y, forms, fetch).",
+          transform: "Transforme le delivery web en pipeline qualite standardise."
+        },
+        "fedid-implementation": {
+          title: "fedid implementation patterns",
+          add: "Ajoute des patterns FedID predefinis pour Next, Astro, Spring.",
+          transform: "Transforme les integrations auth vers un standard entreprise reutilisable."
+        },
+        "vitamin-a11y-guardrails": {
+          title: "vitamin play + a11y guardrails",
+          add: "Ajoute des garde-fous design tokens + accessibilite obligatoires.",
+          transform: "Transforme l'UI codee en rendu coherent avec le design system et la conformite."
+        },
+        "evidence-first": {
+          title: "evidence-first",
+          add: "Ajoute la regle: pas d'affirmation sans preuve (Datadog, KG, GitHub).",
+          transform: "Transforme Morgan en diagnostic fiable et traceable."
+        },
+        "read-only-operations": {
+          title: "read-only operations",
+          add: "Ajoute l'interdiction de pretendre des actions de prod (deploy, rollback, mute).",
+          transform: "Transforme Morgan en role d'analyse sans action operationnelle fictive."
+        },
+        "production-only-scope": {
+          title: "production-only scope",
+          add: "Ajoute un scope par defaut sur prod sauf override explicite.",
+          transform: "Transforme l'investigation vers l'impact business reel."
+        },
+        "slo-incident-workflows": {
+          title: "slo/incident workflows",
+          add: "Ajoute des workflows specialises incidents et SLO via menu SRE.",
+          transform: "Transforme Morgan en execution guidee par playbooks fiabilite."
+        },
+        "decathlon-platform-context": {
+          title: "decathlon platform team context",
+          add: "Ajoute le positionnement team et mission plateforme Decathlon.",
+          transform: "Transforme la posture SRE en orientation explicite platform reliability."
+        },
+        "skill-catalog-decathlon": {
+          title: "skill catalog decathlon",
+          add: "Ajoute un catalogue de skills non natifs BMAD provenant de dktunited (radar, compliance, fedid, reliability, KG).",
+          transform: "Transforme les agents en workflows metier Decathlon pre-outilles."
+        },
+        "skills-lock-governance": {
+          title: "skills lock governance",
+          add: "Ajoute un verrou de version et de provenance des skills utilises dans le projet.",
+          transform: "Transforme la plateforme en execution plus stable, reproductible et auditable."
+        },
+        "enterprise-mcp-integration": {
+          title: "enterprise mcp integration",
+          add: "Ajoute les integrations MCP entreprise (Datadog, Atlassian, Stitch).",
+          transform: "Transforme les agents en assistants connectes aux sources operationnelles reelles."
+        }
+      };
+
+      const chips = Array.from(document.querySelectorAll('.label-chip.clickable'));
+      const panel = document.getElementById('label-details');
+      const title = document.getElementById('label-details-title');
+      const add = document.getElementById('label-details-add');
+      const transform = document.getElementById('label-details-transform');
+      let activeKey = null;
+
+      function clearActive() {
+        chips.forEach((chip) => chip.classList.remove('active'));
+      }
+
+      function toggleLabel(key, chip) {
+        if (!detailsByLabel[key]) {
+          return;
+        }
+
+        if (activeKey === key) {
+          activeKey = null;
+          clearActive();
+          panel.classList.remove('open');
+          return;
+        }
+
+        activeKey = key;
+        clearActive();
+        chip.classList.add('active');
+
+        title.textContent = detailsByLabel[key].title;
+        add.textContent = "Ce que le label ajoute: " + detailsByLabel[key].add;
+        transform.textContent = "Ce que ca transforme chez l'agent: " + detailsByLabel[key].transform;
+        panel.classList.add('open');
+      }
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => toggleLabel(chip.dataset.label, chip));
+        chip.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleLabel(chip.dataset.label, chip);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
